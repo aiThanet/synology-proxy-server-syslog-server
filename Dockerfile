@@ -1,7 +1,7 @@
-FROM 32bit/ubuntu:14.04
+FROM ubuntu:14.04
 
 RUN apt-get update \
-    && apt-get install -y git net-tools vim nginx rsyslog supervisor php5-fpm php5-cli apache2-utils\
+    && apt-get install -y git net-tools vim nginx rsyslog supervisor php5-fpm php5-cli apache2-utils \
     && rm -rf /var/lib/apt/lists/*
 
 RUN sed -i -e 's/listen\ =\ 127.0.0.1:9000/listen\ =\ \/var\/run\/php5-fpm.sock/' /etc/php5/fpm/pool.d/www.conf
@@ -24,8 +24,7 @@ COPY config.user.php /var/www/
 COPY rsyslog.conf /etc/rsyslog.conf
 COPY create-user.php /var/www/
 COPY run.sh /
-
-#RUN cd /var/www && php5 -f ./create-user.php && chown www-data:www-data config.auth.user.php 
+RUN chmod +x run.sh
 
 EXPOSE 80 514/udp
 

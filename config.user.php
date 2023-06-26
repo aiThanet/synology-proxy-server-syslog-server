@@ -13,19 +13,19 @@
 	"globals": {
 		"_remove_me_to_set_AUTH_LOG_FILE_COUNT"         : 100,
 		"_remove_me_to_set_AUTO_UPGRADE"                : false,
-		"_remove_me_to_set_CHECK_UPGRADE"               : true,
+		"CHECK_UPGRADE"                                 : false,
 		"_remove_me_to_set_EXPORT"                      : true,
 		"_remove_me_to_set_FILE_SELECTOR"               : "bs",
-		"FOOTER"                      : "PimpMyLogs",
+		"FOOTER"                                        : "PimpMyLogs",
 		"_remove_me_to_set_FORGOTTEN_YOUR_PASSWORD_URL" : "http:\/\/support.pimpmylog.com\/kb\/misc\/forgotten-your-password",
 		"_remove_me_to_set_GEOIP_URL"                   : "http:\/\/www.geoiptool.com\/en\/?IP=%p",
 		"_remove_me_to_set_GOOGLE_ANALYTICS"            : "UA-XXXXX-X",
 		"_remove_me_to_set_HELP_URL"                    : "http:\/\/pimpmylog.com",
-		"_remove_me_to_set_LOCALE"                      : "gb_GB",
+		"LOCALE"                                        : "en_GB",
 		"_remove_me_to_set_LOGS_MAX"                    : 50,
 		"_remove_me_to_set_LOGS_REFRESH"                : 0,
 		"_remove_me_to_set_MAX_SEARCH_LOG_TIME"         : 5,
-		"_remove_me_to_set_NAV_TITLE"                   : "",
+		"NAV_TITLE"                                     : "PimpMyLogs",
 		"_remove_me_to_set_NOTIFICATION"                : true,
 		"_remove_me_to_set_NOTIFICATION_TITLE"          : "New logs [%f]",
 		"_remove_me_to_set_PIMPMYLOG_ISSUE_LINK"        : "https:\/\/github.com\/potsky\/PimpMyLog\/issues\/",
@@ -35,11 +35,11 @@
 		"_remove_me_to_set_TAG_DISPLAY_LOG_FILES_COUNT" : true,
 		"_remove_me_to_set_TAG_NOT_TAGGED_FILES_ON_TOP" : true,
 		"_remove_me_to_set_TAG_SORT_TAG"                : "default | display-asc | display-insensitive | display-desc | display-insensitive-desc",
-		"_remove_me_to_set_TITLE"                       : "Pimp my Log",
-		"_remove_me_to_set_TITLE_FILE"                  : "Pimp my Log [%f]",
+		"TITLE"                                         : "Pimp my Log",
+		"TITLE_FILE"                                    : "Pimp my Log",
 		"_remove_me_to_set_UPGRADE_MANUALLY_URL"        : "http:\/\/pimpmylog.com\/getting-started\/#update",
 		"_remove_me_to_set_USER_CONFIGURATION_DIR"      : "config.user.d",
-		"_remove_me_to_set_USER_TIME_ZONE"              : "Europe\/Paris"
+		"USER_TIME_ZONE"              : "Asia\/Bangkok"
 	},
 
 	"badges": {
@@ -69,26 +69,34 @@
 
 	"files": {
 		"syslog": {
-			"display" : "Syslog",
+			"display" : "Proxy Server",
 			"path"    : "/var/log/net/syslog.log",
 			"refresh" : 20,
 			"max"     : 20,
 			"notify"  : false,
 			"format"  : {
-				"regex": "|([0-9]{1,2}-.*-[0-9]{1,4} [0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}.[0-9]{1,3}) (.*?) (.*?) (.*?)$|",
+				"regex": "|(?<Date>.*?)\.\d{3}\s+-?\d+ (?<ip>.+) (?<cache>\w+)\/(?<httpresponse>\d+) (?<size>\d+) (?<requestmethod>\w+) (?<Message>.*) (?<user>.+) (?<route>.*?) (?<method>.+)|",
 				"match": {
-					"Date"    : 1,
-					"Time"    : 1,
-					"IP"  	  : 2,
-					"Log Level"   : 3,
-					"Message" : 4
+					"Date"     			: { "U" : 1 },
+					"IP"    			: 2,
+					"Cache"     		: 3,
+					"HttpResponse"      : 4,
+					"Size"    			: 5,
+					"Method"    		: 6,
+					"URL"     			: 7,
+					"User"     			: 8,
+					"Route"     		: 9
 				},
 				"types": {
-					"Date"    : "date:d:M:Y",
-					"Time"    : "date:H:i:s",
-					"Log Level": "txt",
-					"IP"      : "txt",
-					"Message" : "txt"
+					"Date"     			: "date:d\/m\/Y H:i:s \/100",
+					"IP"    			: "txt",
+					"Cache"     		: "txt",
+					"HttpResponse"      : "txt",
+					"Size"    			: "txt",
+					"Method"    		: "txt",
+					"URL"     			: "txt",
+					"User"     			: "txt",
+					"Route"     		: "txt"
 				}
 			}
 		}
