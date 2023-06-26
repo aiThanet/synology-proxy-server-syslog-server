@@ -1,10 +1,10 @@
 <?php
-/*! pimpmylog - 1.7.10 - 65d6f147e509133fc5f09642ba82b149ef750ef2*/
+/*! pimpmylog - 1.7.14 - 025d83c29c6cf8dbb697aa966c9e9f8713ec92f1*/
 /*
  * pimpmylog
  * http://pimpmylog.com
  *
- * Copyright (c) 2015 Potsky, contributors
+ * Copyright (c) 2017 Potsky, contributors
  * Licensed under the GPLv3 license.
  */
 ?>
@@ -16,9 +16,10 @@
 		"CHECK_UPGRADE"                                 : false,
 		"_remove_me_to_set_EXPORT"                      : true,
 		"_remove_me_to_set_FILE_SELECTOR"               : "bs",
-		"FOOTER"                                        : "PimpMyLogs",
+		"_remove_me_to_set_FOOTER"                      : "&copy; <a href=\"http:\/\/www.potsky.com\" target=\"doc\">Potsky<\/a> 2007-' . YEAR . ' - <a href=\"http:\/\/pimpmylog.com\" target=\"doc\">Pimp my Log<\/a>",
 		"_remove_me_to_set_FORGOTTEN_YOUR_PASSWORD_URL" : "http:\/\/support.pimpmylog.com\/kb\/misc\/forgotten-your-password",
 		"_remove_me_to_set_GEOIP_URL"                   : "http:\/\/www.geoiptool.com\/en\/?IP=%p",
+		"_remove_me_to_set_PORT_URL"                    : "http:\/\/www.adminsub.net\/tcp-udp-port-finder\/%p",
 		"_remove_me_to_set_GOOGLE_ANALYTICS"            : "UA-XXXXX-X",
 		"_remove_me_to_set_HELP_URL"                    : "http:\/\/pimpmylog.com",
 		"LOCALE"                                        : "en_GB",
@@ -54,8 +55,8 @@
 			"alert"       : "danger",
 			"emerg"       : "danger",
 			"Notice"      : "info",
-			"fatal error" : "danger",
-			"parse error" : "danger",
+			"Fatal error" : "danger",
+			"Parse error" : "danger",
 			"Warning"     : "warning"
 		},
 		"http": {
@@ -69,18 +70,19 @@
 
 	"files": {
 		"syslog": {
-			"display" : "Proxy Server",
-			"path"    : "/var/log/net/syslog.log",
-			"refresh" : 20,
-			"max"     : 20,
-			"notify"  : false,
-			"format"  : {
-				"regex": "|(?<Date>.*?)\.\d{3}\s+-?\d+ (?<ip>.+) (?<cache>\w+)\/(?<httpresponse>\d+) (?<size>\d+) (?<requestmethod>\w+) (?<Message>.*) (?<user>.+) (?<route>.*?) (?<method>.+)|",
-				"match": {
+			"display"   : "Proxy Server",
+			"path"      : "\/var\/log\/net\/syslog.log",
+			"refresh"   : 5,
+			"max"       : 10,
+			"notify"    : true,
+			"multiline" : "",
+			"format"    : {
+				"regex"        : "|^(.*)[.].* (.*) (.*) (.*) (.*) (.*) (.*) (.*) (.*)$|U,
+				"export_title" : "Log",
+				"match"        : {
 					"Date"     			: { "U" : 1 },
-					"IP"    			: 2,
-					"Cache"     		: 3,
-					"HttpResponse"      : 4,
+					"IP"    			: 3,
+					"Cache"     		: 4,
 					"Size"    			: 5,
 					"Method"    		: 6,
 					"URL"     			: 7,
@@ -91,7 +93,6 @@
 					"Date"     			: "date:d\/m\/Y H:i:s \/100",
 					"IP"    			: "txt",
 					"Cache"     		: "txt",
-					"HttpResponse"      : "txt",
 					"Size"    			: "txt",
 					"Method"    		: "txt",
 					"URL"     			: "txt",
