@@ -26,4 +26,4 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/synology-proxy-server-syslog-server:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/synology-proxy-server-syslog-server:latest
