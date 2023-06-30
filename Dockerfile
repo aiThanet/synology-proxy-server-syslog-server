@@ -20,8 +20,10 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY config.user.php /var/www/
 COPY rsyslog.conf /etc/rsyslog.conf
 COPY create-user.php /var/www/
+COPY log_rotation_script.sh /
 COPY run.sh /
 RUN chmod +x run.sh
+RUN chmod +x log_rotation_script.sh
 
 EXPOSE 80 514/udp
 
