@@ -1,4 +1,4 @@
-Based on: https://github.com/pbertera/dockerfiles/tree/master/syslogserver
+[Deprecated] Based on: https://github.com/pbertera/dockerfiles/tree/master/syslogserver
 
 ## Rsyslogd + PimpMyLogs
 
